@@ -311,7 +311,6 @@ async def on_member_join(member):
 
 @bot.event
 async def on_member_remove(member):
-    x = datetime.datetime.now()
     discriminator = member.discriminator
     id = member.id
     embed = default_event_embed
@@ -319,7 +318,6 @@ async def on_member_remove(member):
     embed.description = f"Der Member **{member}** hat den Server verlassen"
     embed.add_field(name="Discriminator", value=f"{discriminator}")
     embed.add_field(name="ID", value=f"{id}")
-    embed.set_footer(text=f"{x}")
     await bot.get_channel(member_tracker_channel).send(embed=embed)
 
 @bot.event
@@ -353,6 +351,10 @@ async def on_member_update(before: disnake.member, after: disnake.member):
         await bot.get_channel(member_tracker_channel).send(embed=embed)
 
 #Status Task erstellen
+
+status_channel = 1038885263641952336 #Channel ID
+offline_emoji = bot.get_emoji(743838908030386209) #Emoji ID offline
+online_emoji = bot.get_emoji(743838878556749936) #Emoji ID online
 @bot.event
 async def on_ready():
     global started
@@ -365,9 +367,11 @@ async def on_ready():
             print("  - %s (%s) \nOwner: %s (%s) \nMitglieder: %s Mitglieder \nErstellt am: %s" % (
                 s.name, s.id, s.owner, s.owner_id, s.member_count, s.created_at.strftime("%d.%m.%Y, %H:%M Uhr")))
         started = True
+        await bot.get_channel(status_channel).send("Bot ist online.")
 
     else:
         print('Bot ist offline.')
+        await bot.get_channel(status_channel).send("Bot ist offline.")
     return
 
 #Presence
@@ -391,7 +395,7 @@ async def status_task():
 async def shutdown(ctx):
     await ctx.send("Bot fährt in 5 Sekunden runter.")
     await asyncio.sleep(5)
-    await ctx.send(" Bot ist offline.")
+    await bot.get_channel(status_channel).send(" Bot ist offline.")
     await bot.close()
     sys.exit(0)
 
