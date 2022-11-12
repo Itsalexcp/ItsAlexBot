@@ -4,6 +4,7 @@ import asyncio
 import time
 import random
 import disnake
+from defaults import emojis
 from datetime             import timedelta
 from random               import randint
 from disnake.activity     import BaseActivity
@@ -21,6 +22,7 @@ from disnake.ext.commands import MissingRequiredArgument
 from disnake.ext.commands import BadArgument
 from disnake.ext.commands import NotOwner
 from disnake.ext.commands import CommandOnCooldown
+
 
 #bot Instanz erstellen
 class bot(commands.Bot):
@@ -431,7 +433,7 @@ async def unload(ctx, extension):
 
 @bot.slash_command(description="Antwortet mit Welt!")
 async def hello(inter):
-    await inter.response.send_message("Welt")
+    await inter.response.send_message(f"Welt {emojis.Typing}")
 
 
 
