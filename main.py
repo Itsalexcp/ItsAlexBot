@@ -112,7 +112,8 @@ async def status_task():
 async def shutdown(ctx):
     await ctx.send("Bot fährt in 5 Sekunden runter.")
     await asyncio.sleep(5)
-    await bot.get_channel(status_channel).send(" Bot ist offline.")
+    embed = defaults.style.status_off_embed
+    await bot.get_channel(defaults.channels.status).send(embed = embed)
     await bot.close()
     sys.exit(0)
 
