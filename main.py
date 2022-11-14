@@ -9,6 +9,7 @@ from defaults             import emojis
 from defaults             import channels
 from defaults             import style
 from datetime             import timedelta
+from datetime             import datetime
 from random               import randint
 from disnake.activity     import BaseActivity
 from disnake.client       import GatewayParams
