@@ -1,17 +1,24 @@
 import disnake
+from datetime import datetime
+import pytz
+
+tz = pytz.timezone('Europe/Berlin')
+
+datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
+created_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
 
 
 # event embed
-def event_embed(title=None,
-                name=None,
-                id=None,
-                created_at=None,
-                category=None,
-                jump_url=None,
-                position=None):
+def channel_embed(title=None,
+                  name=None,
+                  id=None,
+                  created_at=None,
+                  category=None,
+                  jump_url=None,
+                  position=None):
     embed = disnake.Embed(
         color=primaryColor,
-        timestamp=disnake.utils.utcnow()
+        timestamp=datetime.now(tz)
     )
     if title is not None:
         embed.title = title
@@ -20,7 +27,7 @@ def event_embed(title=None,
     if id is not None:
         embed.add_field(name='ID:', value=id, inline=False)
     if created_at is not None:
-        embed.add_field(name='Erstellt am:', value=created_at, inline=False)
+        embed.add_field(name='Erstellt am:', value=created_ats, inline=False)
     if category is not None:
         embed.add_field(name='Kategorie:', value=category, inline=False)
     if jump_url is not None:
@@ -42,7 +49,7 @@ def role_embed(title=None,
                position=None):
     embed = disnake.Embed(
         color=primaryColor,
-        timestamp=disnake.utils.utcnow()
+        timestamp=datetime.now(tz)
     )
     if title is not None:
         embed.title = title
@@ -57,9 +64,62 @@ def role_embed(title=None,
     if id is not None:
         embed.add_field(name='ID:', value=id, inline=False)
     if created_at is not None:
-        embed.add_field(name='Erstellt am:', value=created_at, inline=False)
+        embed.add_field(name='Erstellt am:', value=created_ats, inline=False)
     if position is not None:
         embed.add_field(name='Position:', value=position, inline=False)
+    embed.set_author(name="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    return embed
+
+
+def guild_embed(title=None,
+                name=None,
+                id=None,
+                afk_channel=None,
+                afk_timeout=None,
+                created_at=None,
+                default_message_notifications=None,
+                description=None,
+                explicit_content_filter=None,
+                icon=None,
+                mfa_level=None,
+                owner=None,
+                verification_level=None,
+                vanity_url_code=None,
+                ):
+    embed = disnake.Embed(
+        color=primaryColor,
+        timestamp=datetime.now(tz)
+    )
+    if title is not None:
+        embed.title = title
+    if name is not None:
+        embed.add_field(name='Servername:', value=name, inline=False)
+    if id is not None:
+        embed.add_field(name='ServerID:', value=id, inline=False)
+    if afk_channel is not None:
+        embed.add_field(name='AFK Kanal:', value=afk_channel, inline=False)
+    if afk_timeout is not None:
+        embed.add_field(name='AFK Timeout:', value=afk_timeout, inline=False)
+    if created_at is not None:
+        embed.add_field(name='Erstellt am:', value=created_ats, inline=False)
+    if default_message_notifications is not None:
+        embed.add_field(name='Systembenachrichtigungen:', value=default_message_notifications, inline=False)
+    if description is not None:
+        embed.add_field(name='Beschreibung:', value=description, inline=False)
+    if explicit_content_filter is not None:
+        embed.add_field(name='Nachrichten durchsuchen', value=explicit_content_filter, inline=False)
+    if mfa_level is not None:
+        embed.add_field(name='MFA Level:', value=mfa_level, inline=False)
+    if owner is not None:
+        embed.add_field(name='Owner:', value=owner, inline=False)
+    if verification_level is not None:
+        embed.add_field(name='Verifizierungs Level', value=verification_level, inline=False)
+    if vanity_url_code is not None:
+        embed.add_field(name='Vanity URL Code:', value=vanity_url_code, inline=False)
+    if icon is not None:
+        embed.set_thumbnail(url=icon)
+
     embed.set_author(name="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
@@ -75,7 +135,7 @@ falseColor = 0xe60000
 # stats embed
 status_on_embed = disnake.Embed(
     color=disnake.Colour.green(),
-    timestamp=disnake.utils.utcnow()
+    timestamp=datetime.now(tz)
 )
 status_on_embed.set_author(
     name="Ich bin online",
@@ -87,7 +147,7 @@ status_on_embed.set_footer(
 
 status_off_embed = disnake.Embed(
     color=disnake.Colour.red(),
-    timestamp=disnake.utils.utcnow()
+    timestamp=datetime.now(tz)
 )
 status_off_embed.set_author(
     name="Ich bin offline",

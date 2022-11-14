@@ -15,14 +15,20 @@ class RoleCreateEvent(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_role_create(self, role: disnake.Role):
         bot = self.bot
-        embed = role_embed (name=role.name,
-                            title=f"Rolle erstellt {role.mention}",
-                            id=role.id,
-                            hoist=role.hoist,
-                            mentionable=role.mentionable,
-                            role_color=role.color,
-                            created_at=role.created_at,
-                            position=role.position,)
+        embed = role_embed(name=role.name,
+                           title=f"Rolle erstellt {role.mention}",
+                           id=role.id,
+                           role_color=role.color,
+                           created_at=role.created_at,
+                           position=role.position, )
+        if role.mentionable is True:
+            embed.add_field(name="Erwähnbar", value=f"Rolle kann erwähnt werden")
+        else:
+            embed.add_field(name="Erwähnbar", value=f"Rolle kann nicht erwähnt werden")
+        if role.hoist is True:
+            embed.add_field(name="Anzeige", value=f"Rolle wird rechts angezeigt")
+        else:
+            embed.add_field(name="Anzeige", value=f"Rolle wird nicht angezeigt")
         await bot.get_channel(defaults.channels.role_tracker).send(embed=embed)
 
 

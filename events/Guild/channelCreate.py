@@ -1,7 +1,7 @@
 import disnake
 import defaults
 from defaults import style
-from defaults.style import event_embed
+from defaults.style import channel_embed
 from defaults import emojis
 from defaults import channels
 from disnake.ext import commands
@@ -15,13 +15,13 @@ class ChannelCreateEvent(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_channel_create(self, channel: disnake.abc.GuildChannel):
         bot = self.bot
-        embed = event_embed(name=channel.name,
-                            title="Channel erstellt",
-                            id=channel.id,
-                            created_at=channel.created_at,
-                            category=channel.category,
-                            jump_url=channel.jump_url,
-                            position=channel.position)
+        embed = channel_embed(name=channel.name,
+                              title="Channel erstellt",
+                              id=channel.id,
+                              created_at=channel.created_at,
+                              category=channel.category,
+                              jump_url=channel.jump_url,
+                              position=channel.position)
         await bot.get_channel(defaults.channels.channel_tracker).send(embed=embed)
 
 

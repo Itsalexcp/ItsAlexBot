@@ -34,14 +34,20 @@ class RoleUpdateEvent(commands.Cog):
             embed = role_embed(title="Rolle verändert",
                                name=after.name,
                                id=before.id, )
-            embed.add_field(name="Art der Änderung", value=f"Listung {before.hoist} zu {after.hoist} verändert ")
+            if after.hoist is True:
+                embed.add_field(name="Art der Änderung", value=f"Rolle wird rechts angezeigt")
+            else:
+                embed.add_field(name="Art der Änderung", value=f"Rolle wird nicht angezeigt")
             await bot.get_channel(defaults.channels.role_tracker).send(embed=embed)
 
         if before.mentionable != after.mentionable:
             embed = role_embed(title="Rolle verändert",
                                name=after.name,
                                id=before.id, )
-            embed.add_field(name="Art der Änderung", value=f"Erwähnbarkeit {before.mentionable} zu {after.mentionable} verändert ")
+            if after.mentionable is True:
+                embed.add_field(name="Art der Änderung", value=f"Rolle kann erwähnt werden")
+            else:
+                embed.add_field(name="Art der Änderung", value=f"Rolle kann nicht mehr erwähnt werden")
             await bot.get_channel(defaults.channels.role_tracker).send(embed=embed)
 
         if before.permissions != after.permissions:
@@ -49,13 +55,6 @@ class RoleUpdateEvent(commands.Cog):
                                name=after.name,
                                id=before.id, )
             embed.add_field(name="Art der Änderung", value=f"Perms {before.permissions} zu {after.permissions} verändert ")
-            await bot.get_channel(defaults.channels.role_tracker).send(embed=embed)
-
-        if before.position != after.position:
-            embed = role_embed(title="Rolle verändert",
-                               name=after.name,
-                               id=before.id, )
-            embed.add_field(name="Art der Änderung", value=f"Position von {before.position} zu {after.position} verändert ")
             await bot.get_channel(defaults.channels.role_tracker).send(embed=embed)
 
 

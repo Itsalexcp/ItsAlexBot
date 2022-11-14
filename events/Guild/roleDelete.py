@@ -16,8 +16,8 @@ class RoleDeleteEvent(commands.Cog):
     async def on_guild_role_delete(self, role: disnake.Role):
         bot = self.bot
         embed = role_embed(name=role.name,
-                            title="Rolle gelöscht",
-                            id=role.id, )
+                           title="Rolle gelöscht",
+                           id=role.id, )
         await bot.get_channel(defaults.channels.role_tracker).send(embed=embed)
 
 
