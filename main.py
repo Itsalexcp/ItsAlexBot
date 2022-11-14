@@ -71,40 +71,6 @@ for filename in os.listdir('./events/Message'):
         print(f'EventListener {filename} wurde geladen!')
         bot.load_extension(f'events.message.{filename[:-3]}')
 
-@bot.event
-async def on_ready():
-    global started
-    if not started:
-        print("Bot ist online.")
-        print("Eingeloggt als Bot {}".format(bot.user.name))
-        bot.loop.create_task(status_task())
-        print("\nBot ist erfolgreich online gegangen.\n\nLäuft aktuell auf folgenden Server:\n")
-        for s in bot.guilds:
-            print("  - %s (%s) \nOwner: %s (%s) \nMitglieder: %s Mitglieder \nErstellt am: %s" % (
-                s.name, s.id, s.owner, s.owner_id, s.member_count, s.created_at.strftime("%d.%m.%Y, %H:%M Uhr")))
-        started = True
-        embed = defaults.style.status_on_embed
-        await bot.get_channel(defaults.channels.status).send(embed=embed)
-
-    else:
-        print('Bot ist offline.')
-        embed = defaults.style.status_off_embed
-        await bot.get_channel(defaults.channels.status).send(embed=embed)
-    return
-
-#Presence
-async def status_task():
-    while True:
-        await bot.change_presence(activity=disnake.Game("ItsAlex Enterprise"),
-                                  status=disnake.Status.online)
-        await asyncio.sleep(30)
-        await bot.change_presence(activity=disnake.Game("Mit Gamerking"),
-                                  status=disnake.Status.online)
-        await asyncio.sleep(30)
-        await bot.change_presence(activity=disnake.Game("Mit ItsAlex"),
-                                    status=disnake.Status.online)
-        await asyncio.sleep(30)
-
 
 #starke commands
 
