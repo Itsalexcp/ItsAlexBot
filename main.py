@@ -70,10 +70,17 @@ for filename in os.listdir('./events/Guild'):
 for filename in os.listdir('./events/Message'):
     if filename.endswith('.py'):
         print(f'EventListener {filename} wurde geladen!')
-        bot.load_extension(f'events.message.{filename[:-3]}')
+        bot.load_extension(f'events.Message.{filename[:-3]}')
 
 
 #starke commands
+
+
+@bot.command()
+@commands.is_owner()
+async def cache(ctx):
+    await ctx.send(f'Cache: ```{bot.cached_messages}```')
+
 
 @bot.command()
 @commands.is_owner()
