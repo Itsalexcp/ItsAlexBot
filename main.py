@@ -56,6 +56,16 @@ for filename in os.listdir('./cmds'):
     if filename.endswith('.py'):
         print(f'Command {filename} wurde geladen!')
         bot.load_extension(f'cmds.{filename[:-3]}')
+#Admin Commands
+for filename in os.listdir('./cmds/admin'):
+    if filename.endswith('.py'):
+        print(f'Command {filename} wurde geladen!')
+        bot.load_extension(f'cmds.admin.{filename[:-3]}')
+#Discordeasy Commands
+for filename in os.listdir('./cmds/discordeasy'):
+    if filename.endswith('.py'):
+        print(f'Command {filename} wurde geladen!')
+        bot.load_extension(f'cmds.discordeasy.{filename[:-3]}')
 #Load Client Events
 for filename in os.listdir('./events/Client'):
     if filename.endswith('.py'):
@@ -71,6 +81,8 @@ for filename in os.listdir('./events/Message'):
     if filename.endswith('.py'):
         print(f'EventListener {filename} wurde geladen!')
         bot.load_extension(f'events.Message.{filename[:-3]}')
+
+
 
 
 #starke commands
