@@ -6,6 +6,8 @@ tz = pytz.timezone('Europe/Berlin')
 
 datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
 created_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
+joined_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
+left_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
 
 
 # event embed
@@ -131,7 +133,7 @@ def message_embed(title=None,
                   channel=None,
                   attachments=None,
                   id=None,
-                  created_at=None,):
+                  created_at=None, ):
     embed = disnake.Embed(
         color=primaryColor,
         timestamp=datetime.now(tz)
@@ -152,6 +154,120 @@ def message_embed(title=None,
         embed.add_field(name='Erstellt am:', value=created_ats, inline=False)
     embed.set_author(name="Message", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     embed.set_footer(text="Message", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    return embed
+
+
+def voicestate_embed(title=None,
+                     member=None,
+                     channel=None,
+                     id=None,
+                     joined_at=None,
+                     left_at=None,
+                     ):
+    embed = disnake.Embed(
+        color=primaryColor,
+        timestamp=datetime.now(tz)
+    )
+    if title is not None:
+        embed.title = title
+    if member is not None:
+        embed.add_field(name='Member:', value=member, inline=False)
+    if channel is not None:
+        embed.add_field(name='Channel:', value=channel, inline=False)
+    if id is not None:
+        embed.add_field(name='ID:', value=id, inline=False)
+    if joined_at is not None:
+        embed.add_field(name='Beigetreten am:', value=joined_ats, inline=False)
+    if left_at is not None:
+        embed.add_field(name='Verlassen am:', value=left_ats, inline=False)
+    embed.set_author(name="VoiceState", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    return embed
+
+
+def member_embed(title=None,
+                 name=None,
+                 discriminator=None,
+                 id=None,
+                 created_at=None,
+                 joined_at=None,
+                 left_at=None,
+                 roles=None,
+                 nick=None,
+                 premium_since=None,
+                 is_on_mobile=None,
+                 ):
+    embed = disnake.Embed(
+        color=primaryColor,
+        timestamp=datetime.now(tz)
+    )
+    if title is not None:
+        embed.title = title
+    if name is not None:
+        embed.add_field(name='Name:', value=name, inline=False)
+    if discriminator is not None:
+        embed.add_field(name='Discriminator:', value=f"#{discriminator}", inline=False)
+    if id is not None:
+        embed.add_field(name='ID:', value=id, inline=False)
+    if created_at is not None:
+        embed.add_field(name='Erstellt am:', value=created_at, inline=False)
+    if left_at is not None:
+        embed.add_field(name='Verlassen am:', value=left_at, inline=False)
+    if joined_at is not None:
+        embed.add_field(name='Beigetreten am:', value=joined_at, inline=False)
+    if roles is not None:
+        embed.add_field(name='Rollen:', value=roles, inline=False)
+    if nick is not None:
+        embed.add_field(name='Nickname:', value=nick, inline=False)
+    if premium_since is not None:
+        embed.add_field(name='Nitro seit:', value=premium_since, inline=False)
+    if is_on_mobile is not None:
+        if is_on_mobile is True:
+            embed.add_field(name='Gerät:', value="Handy", inline=False)
+        if is_on_mobile is False:
+            embed.add_field(name='Gerät:', value="PC", inline=False)
+
+    embed.set_author(name="Member", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Member", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    return embed
+
+
+def invite_embed(title=None,
+                 inviter=None,
+                 guild=None,
+                 code=None,
+                 uses=None,
+                 max_uses=None,
+                 max_age=None,
+                 temporary=None,
+                 created_at=None,
+                 ):
+    embed = disnake.Embed(
+        color=primaryColor,
+        timestamp=datetime.now(tz)
+    )
+    if title is not None:
+        embed.title = title
+    if inviter is not None:
+        embed.add_field(name='Ersteller', value=inviter, inline=False)
+    if guild is not None:
+        embed.add_field(name='Server', value=guild, inline=False)
+    if code is not None:
+        embed.add_field(name='Code:', value=code, inline=False)
+    if uses is not None:
+        embed.add_field(name='Verwendungen:', value=uses, inline=False)
+    if max_uses is not None:
+        embed.add_field(name='Maximale Verwendungen:', value=max_uses, inline=False)
+    if max_age is not None:
+        embed.add_field(name='Gültigkeit:', value=max_age, inline=False)
+    if temporary is not None:
+        if temporary is True:
+            embed.add_field(name='Temporär:', value="Ja", inline=False)
+        if temporary is False:
+            embed.add_field(name='Temporär:', value="Nein", inline=False)
+    if created_at is not None:
+        embed.add_field(name='Erstellt am:', value=created_at, inline=False)
+    embed.set_author(name="Invite", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Invite", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
 
