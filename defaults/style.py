@@ -125,6 +125,36 @@ def guild_embed(title=None,
     return embed
 
 
+def message_embed(title=None,
+                  author=None,
+                  content=None,
+                  channel=None,
+                  attachments=None,
+                  id=None,
+                  created_at=None,):
+    embed = disnake.Embed(
+        color=primaryColor,
+        timestamp=datetime.now(tz)
+    )
+    if title is not None:
+        embed.title = title
+    if author is not None:
+        embed.add_field(name='Autor:', value=author, inline=False)
+    if content is not None:
+        embed.add_field(name='Nachricht:', value=content, inline=False)
+    if channel is not None:
+        embed.add_field(name='Channel:', value=channel, inline=False)
+    if attachments is not None:
+        embed.add_field(name='Attachments:', value=attachments, inline=False)
+    if id is not None:
+        embed.add_field(name='NachrichtenID:', value=id, inline=False)
+    if created_at is not None:
+        embed.add_field(name='Erstellt am:', value=created_ats, inline=False)
+    embed.set_author(name="Message", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Message", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    return embed
+
+
 # colors
 primaryColor = 0xe6e600
 secondaryColor = 0x33ccff
