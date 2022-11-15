@@ -3,6 +3,7 @@ import defaults
 from defaults import style
 from defaults import channels
 from disnake.ext import commands
+from defaults.style import message_embed
 
 
 class MessageDeleteEvent(commands.Cog):
@@ -15,7 +16,7 @@ class MessageDeleteEvent(commands.Cog):
         bot = self.bot
         if message.author.bot:
             return
-        embed = style.message_embed(title="Nachricht gelöscht",
+        embed = message_embed(title="Nachricht gelöscht",
                                     author=message.author,
                                     content=message.content,
                                     created_at=message.created_at,
