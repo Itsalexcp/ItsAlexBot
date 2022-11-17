@@ -272,11 +272,13 @@ def invite_embed(title=None,
 
 
 # colors
+
 primaryColor = 0xe6e600
 secondaryColor = 0x33ccff
 accentColor = 0x6a329f
 trueColor = 0xa0db8e
 falseColor = 0xe60000
+
 
 # stats embed
 status_on_embed = disnake.Embed(
