@@ -15,7 +15,7 @@ class ChannelDeleteEvent(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_channel_delete(self, channel: disnake.abc.GuildChannel):
         bot = self.bot
-        embed = channel_embed(title="Channel gelöscht",
+        embed = channel_embed(title=f"{emojis.AuditChannelDel} Channel gelöscht",
                               id=channel.id,
                               created_at=channel.created_at,
                               category=channel.category, )

@@ -16,7 +16,7 @@ class ChannelCreateEvent(commands.Cog):
     async def on_guild_channel_create(self, channel: disnake.abc.GuildChannel):
         bot = self.bot
         embed = channel_embed(name=channel.name,
-                              title="Channel erstellt",
+                              title=f"{emojis.AuditChannelAdd}Channel erstellt",
                               id=channel.id,
                               created_at=channel.created_at,
                               category=channel.category,

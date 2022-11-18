@@ -16,7 +16,7 @@ class ChannelUpdateEvent(commands.Cog):
     async def on_guild_channel_update(self, before: disnake.abc.GuildChannel, after: disnake.abc.GuildChannel):
         bot = self.bot
         if before.name != after.name:
-            embed = channel_embed(title="Channel verändert",
+            embed = channel_embed(title=f"{emojis.AuditChannelEdit} Channel verändert",
                                   name=before.name,
                                   id=before.id,
                                   created_at=before.created_at,

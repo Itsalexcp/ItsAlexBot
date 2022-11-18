@@ -16,19 +16,19 @@ class GuildUpdateEvent(commands.Cog):
     async def on_guild_update(self, before: disnake.Guild, after: disnake.Guild):
         bot = self.bot
         if before.name != after.name:
-            embed = guild_embed(title="Name geändert",
+            embed = guild_embed(title=f"{emojis.AuditInfoAdd} Name geändert",
                                 id = before.id,)
             embed.add_field(name="Art der Änderung", value=f"Name von {before.name} zu {after.name} verändert ")
             await bot.get_channel(defaults.channels.guild_tracker).send(embed=embed)
 
         if before.icon != after.icon:
-            embed = guild_embed(title="Icon geändert",
+            embed = guild_embed(title=f"{emojis.IconServer} Icon geändert",
                                 id = before.id,)
             embed.set_thumbnail(url=after.icon)
             await bot.get_channel(defaults.channels.guild_tracker).send(embed=embed)
 
         if before.owner != after.owner:
-            embed = guild_embed(title="Owner geändert",
+            embed = guild_embed(title=f"{emojis.ServerOwner} Owner geändert",
                                 id = before.id,)
             embed.add_field(name="Art der Änderung", value=f"Owner von {before.owner} zu {after.owner} verändert ")
             await bot.get_channel(defaults.channels.guild_tracker).send(embed=embed)
@@ -46,7 +46,7 @@ class GuildUpdateEvent(commands.Cog):
             y1 = y / 60
             embed = guild_embed(title="AFK Timeout geändert",
                                 id = before.id,)
-            embed.add_field(name="Art der Änderung", value=f"AFK Timeout von {x1} Minuten zu {y1} Minuten verändert ")
+            embed.add_field(name="Art der Änderung", value=f"AFK Timeout von {int(x1)} Minuten zu {int(y1)}  Minuten verändert ")
             await bot.get_channel(defaults.channels.guild_tracker).send(embed=embed)
 
         if before.description != after.description:
