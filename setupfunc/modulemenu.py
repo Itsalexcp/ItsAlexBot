@@ -10,13 +10,6 @@ import defaults
 from defaults import emojis
 from defaults import style
 
-z = os.listdir('./cmds')
-z1 = os.listdir('./events/Client')
-z2 = os.listdir('./events/Guild')
-z3 = os.listdir('./events/Message')
-
-allext = z + z1 + z2 + z3
-
 
 class MenuButtons(disnake.ui.View):
     def __init__(self, bot: commands.Bot):
@@ -69,7 +62,7 @@ class MenuButtons(disnake.ui.View):
             else:
                 await channel.send(f'{emojis.Typing} Lade...', delete_after=5)
                 await asyncio.sleep(5)
-                await channel.send('Das Modul wurde erfolgreich entladen.')
+                await channel.send(f'Das Modul {msg.content} wurde erfolgreich entladen.')
 
     @disnake.ui.button(label="Reload", custom_id="reloadmodule", style=disnake.ButtonStyle.blurple, emoji=emojis.SwitchAndroidOn)
     async def reloadmodule(self, button: disnake.ui.Button, interaction: disnake.Interaction):
@@ -93,7 +86,7 @@ class MenuButtons(disnake.ui.View):
             else:
                 await channel.send(f'{emojis.Typing} Lade...', delete_after=5)
                 await asyncio.sleep(5)
-                await channel.send('Das Modul wurde erfolgreich neu geladen.')
+                await channel.send(f'Das Modul {msg.content} wurde erfolgreich neu geladen.')
 
     @disnake.ui.button(label="Close", custom_id="close", style=disnake.ButtonStyle.grey, emoji=emojis.AuditMessageDel)
     async def close(self, button: disnake.ui.Button, interaction: disnake.Interaction):
@@ -113,7 +106,7 @@ class ModuleMenu(commands.Cog):
         embed = disnake.Embed(title="Modulmenü", description="Hier kannst du Module laden, entladen und neu laden.", color=style.primaryColor)
         for s in self.bot.extensions:
             embed.add_field(name=f"{emojis.SwitchNewOnGreen} {s}", value=f"Status: Geladen", inline=False)
-        d1 = set(search_directory("cmds")).difference(self.bot.extensions)
+        d1 = set(search_directory("cmds/general")).difference(self.bot.extensions)
         d2 = set(search_directory("events/Client")).difference(self.bot.extensions)
         d3 = set(search_directory("events/Guild")).difference(self.bot.extensions)
         d4 = set(search_directory("events/Message")).difference(self.bot.extensions)
