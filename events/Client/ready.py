@@ -11,13 +11,16 @@ started = False
 
 async def status_task(bot: commands.Bot):
     while True:
-        await bot.change_presence(activity=disnake.Game("ItsAlex Enterprise"),
+        await bot.change_presence(activity=disnake.Game(f"Mit {len(bot.guilds)} Servern"),
                                   status=disnake.Status.online)
         await asyncio.sleep(30)
-        await bot.change_presence(activity=disnake.Game("Mit Gamerking"),
+        await bot.change_presence(activity=disnake.Game(f"Mit {len(bot.users)} Benutzern"),
                                   status=disnake.Status.online)
         await asyncio.sleep(30)
-        await bot.change_presence(activity=disnake.Game("Mit ItsAlex"),
+        await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.watching, name="itsalex.cp#0001 zu"),
+                                  status=disnake.Status.online)
+        await asyncio.sleep(30)
+        await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name="Updates"),
                                   status=disnake.Status.online)
         await asyncio.sleep(30)
 
