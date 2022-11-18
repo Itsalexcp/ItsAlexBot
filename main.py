@@ -52,30 +52,37 @@ bot = commands.Bot(
                    reload=True,
           )
 
-
-#Load Commands
-for filename in os.listdir('./cmds'):
+#Load cmds
+for filename in os.listdir('./setupfunc'):
     if filename.endswith('.py'):
-        print(f'Command {filename} wurde geladen!')
-        bot.load_extension(f'cmds.{filename[:-3]}')
+        bot.load_extension(f'setupfunc.{filename[:-3]}')
+
+for filename in os.listdir('./cmds/general'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cmds.general.{filename[:-3]}')
+
+for filename in os.listdir('./cmds/modalcmds'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cmds.modalcmds.{filename[:-3]}')
+
+for filename in os.listdir('./cmds/discordeasy'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cmds.discordeasy.{filename[:-3]}')
 
 
 #Load Client Events
 for filename in os.listdir('./events/Client'):
     if filename.endswith('.py'):
-        print(f'EventListener {filename} wurde geladen!')
         bot.load_extension(f'events.Client.{filename[:-3]}')
 
 #Load Guild Events
 for filename in os.listdir('./events/Guild'):
     if filename.endswith('.py'):
-        print(f'EventListener {filename} wurde geladen!')
         bot.load_extension(f'events.Guild.{filename[:-3]}')
 
 #Load Message Events
 for filename in os.listdir('./events/Message'):
     if filename.endswith('.py'):
-        print(f'EventListener {filename} wurde geladen!')
         bot.load_extension(f'events.Message.{filename[:-3]}')
 
 import ItsAlex
