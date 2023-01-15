@@ -65,11 +65,6 @@ for filename in os.listdir('./cmds/modalcmds'):
     if filename.endswith('.py'):
         bot.load_extension(f'cmds.modalcmds.{filename[:-3]}')
 
-for filename in os.listdir('./discordeasy'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'discordeasy.{filename[:-3]}')
-
-
 #Load Client Events
 for filename in os.listdir('./events/Client'):
     if filename.endswith('.py'):
