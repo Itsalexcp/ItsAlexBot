@@ -1,1 +1,1 @@
-worker: python ItsAlex.py
+worker: python main.py
