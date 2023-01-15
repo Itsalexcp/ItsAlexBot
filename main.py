@@ -80,6 +80,5 @@ for filename in os.listdir('./events/Message'):
     if filename.endswith('.py'):
         bot.load_extension(f'events.Message.{filename[:-3]}')
 
-import ItsAlex
 ItsAlexKey = ItsAlex.TOKEN
 bot.run(ItsAlexKey)
