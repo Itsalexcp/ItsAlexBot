@@ -2,12 +2,20 @@ import disnake
 from datetime import datetime
 import pytz
 from defaults import emojis
-tz = pytz.timezone('Europe/Berlin')
 
+# timeformat
+tz = pytz.timezone('Europe/Berlin')
 datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
 created_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
 joined_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
 left_ats = datetime.now(tz).strftime("%d.%m.%Y um %H:%M:%S")
+
+# colors
+primaryColor = 0xe6e600
+secondaryColor = 0x33ccff
+accentColor = 0x6a329f
+trueColor = 0xa0db8e
+falseColor = 0xe60000
 
 
 # event embed
@@ -31,12 +39,12 @@ def channel_embed(title=None,
     if created_at is not None:
         embed.add_field(name=f'{emojis.IconClock} Erstellt am:', value=created_ats, inline=False)
     if category is not None:
-        embed.add_field(name=f'{emojis.IconUnread}Kategorie:', value=category, inline=False)
+        embed.add_field(name=f'{emojis.IconUnread} Kategorie:', value=category, inline=False)
     if jump_url is not None:
-        embed.add_field(name=f'{emojis.IconLink}Channel Link:', value=f'[Zum Channel]({jump_url})', inline=False)
+        embed.add_field(name=f'{emojis.IconLink} Channel Link:', value=f'[Zum Channel]({jump_url})', inline=False)
     if position is not None:
         embed.add_field(name=f'{emojis.CThreads}Position:', value=position, inline=False)
-    embed.set_author(name="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="Kanal event", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
@@ -69,7 +77,7 @@ def role_embed(title=None,
         embed.add_field(name=f'{emojis.IconClock} Erstellt am:', value=created_ats, inline=False)
     if position is not None:
         embed.add_field(name=f'{emojis.CThreads} Position:', value=position, inline=False)
-    embed.set_author(name="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="Rollen Event", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
@@ -100,7 +108,7 @@ def guild_embed(title=None,
     if id is not None:
         embed.add_field(name=f'{emojis.IconId} ServerID:', value=id, inline=False)
     if afk_channel is not None:
-        embed.add_field(name=f'{emojis.IconChannelText } AFK Kanal:', value=afk_channel, inline=False)
+        embed.add_field(name=f'{emojis.IconChannelText} AFK Kanal:', value=afk_channel, inline=False)
     if afk_timeout is not None:
         embed.add_field(name=f'{emojis.IconSlowMode} AFK Timeout:', value=afk_timeout, inline=False)
     if created_at is not None:
@@ -122,7 +130,7 @@ def guild_embed(title=None,
     if icon is not None:
         embed.set_thumbnail(url=icon)
 
-    embed.set_author(name="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="Server Event", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
@@ -152,8 +160,8 @@ def message_embed(title=None,
         embed.add_field(name=f'{emojis.IconId} NachrichtenID:', value=id, inline=False)
     if created_at is not None:
         embed.add_field(name=f'{emojis.IconClock} Erstellt am:', value=created_ats, inline=False)
-    embed.set_author(name="Message", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
-    embed.set_footer(text="Message", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="Message Event", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
 
@@ -180,7 +188,8 @@ def voicestate_embed(title=None,
         embed.add_field(name=f'{emojis.ArrowJoin} Beigetreten am:', value=joined_ats, inline=False)
     if left_at is not None:
         embed.add_field(name=f'{emojis.ArrowLeave} Verlassen am:', value=left_ats, inline=False)
-    embed.set_author(name="VoiceState", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="VoiceLog", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
 
@@ -226,8 +235,8 @@ def member_embed(title=None,
         if is_on_mobile is False:
             embed.add_field(name='Gerät:', value=f"{emojis.IconScreenshare} PC", inline=False)
 
-    embed.set_author(name="Member", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
-    embed.set_footer(text="Member", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="Mitglied Event", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
 
 
@@ -266,18 +275,9 @@ def invite_embed(title=None,
             embed.add_field(name='Temporär:', value="Nein", inline=False)
     if created_at is not None:
         embed.add_field(name=f'{emojis.AuditLinkAdd} Erstellt am:', value=created_at, inline=False)
-    embed.set_author(name="Invite", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
-    embed.set_footer(text="Invite", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_author(name="Invite Event", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
+    embed.set_footer(text="Event Tracker", icon_url="https://cdn.discordapp.com/attachments/1041138068901601400/1041423420845473792/DE_ServerVerifiedBlue.png")
     return embed
-
-
-# colors
-
-primaryColor = 0xe6e600
-secondaryColor = 0x33ccff
-accentColor = 0x6a329f
-trueColor = 0xa0db8e
-falseColor = 0xe60000
 
 
 # stats embed

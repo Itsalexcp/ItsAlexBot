@@ -21,8 +21,7 @@ class ChannelUpdateEvent(commands.Cog):
                                   id=before.id,
                                   created_at=before.created_at,
                                   category=before.category,
-                                  jump_url=before.jump_url,
-                                  position=before.position)
+                                  jump_url=before.jump_url,)
             embed.add_field(name="Art der Änderung", value=f"Name von {before.name} zu {after.name} verändert ")
             await bot.get_channel(defaults.channels.channel_tracker).send(embed=embed)
 
@@ -35,17 +34,6 @@ class ChannelUpdateEvent(commands.Cog):
                                   jump_url=before.jump_url,
                                   position=before.position)
             embed.add_field(name="Art der Änderung", value=f"Thema von {before.topic} zu {after.topic} verändert ")
-            await bot.get_channel(defaults.channels.channel_tracker).send(embed=embed)
-
-        if before.position != after.position:
-            embed = channel_embed(title="Channel verändert",
-                                  name=after.name if before.name != after.name else before.name,
-                                  id=before.id,
-                                  created_at=before.created_at,
-                                  category=before.category,
-                                  jump_url=before.jump_url,
-                                  position=before.position)
-            embed.add_field(name="Art der Änderung", value=f"Position des Kanals von {before.position} zu {after.position} verändert ")
             await bot.get_channel(defaults.channels.channel_tracker).send(embed=embed)
 
         if before.category != after.category:
