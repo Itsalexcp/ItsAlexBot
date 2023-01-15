@@ -81,4 +81,4 @@ for filename in os.listdir('./events/Message'):
         bot.load_extension(f'events.Message.{filename[:-3]}')
 
 os.environ.get("TOKEN")
-bot.run(Token)
+bot.run(open("ItsAlex.py").read())
