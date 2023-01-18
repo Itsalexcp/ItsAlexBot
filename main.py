@@ -80,4 +80,12 @@ for filename in os.listdir('./events/Message'):
     if filename.endswith('.py'):
         bot.load_extension(f'events.Message.{filename[:-3]}')
 
+for filename in os.listdir('./discordeasy'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'discordeasy.{filename[:-3]}')
+
+#push to github
 bot.run(os.environ.get("TOKEN"))
+#test
+#import ItsAlex
+#bot.run(ItsAlex.TESTTOKEN)

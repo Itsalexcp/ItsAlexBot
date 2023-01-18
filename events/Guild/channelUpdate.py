@@ -25,17 +25,6 @@ class ChannelUpdateEvent(commands.Cog):
             embed.add_field(name="Art der Änderung", value=f"Name von {before.name} zu {after.name} verändert ")
             await bot.get_channel(defaults.channels.channel_tracker).send(embed=embed)
 
-        if before.topic != after.topic:
-            embed = channel_embed(title="Channel verändert",
-                                  name=after.name if before.name != after.name else before.name,
-                                  id=before.id,
-                                  created_at=before.created_at,
-                                  category=before.category,
-                                  jump_url=before.jump_url,
-                                  position=before.position)
-            embed.add_field(name="Art der Änderung", value=f"Thema von {before.topic} zu {after.topic} verändert ")
-            await bot.get_channel(defaults.channels.channel_tracker).send(embed=embed)
-
         if before.category != after.category:
             embed = channel_embed(title="Channel verändert",
                                   name=after.name if before.name != after.name else before.name,
