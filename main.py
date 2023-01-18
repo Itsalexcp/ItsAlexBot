@@ -53,9 +53,9 @@ bot = commands.Bot(
           )
 
 #Load cmds
-for filename in os.listdir('./setupfunc'):
+for filename in os.listdir('DEV'):
     if filename.endswith('.py'):
-        bot.load_extension(f'setupfunc.{filename[:-3]}')
+        bot.load_extension(f'DEV.{filename[:-3]}')
 
 for filename in os.listdir('./cmds/general'):
     if filename.endswith('.py'):
