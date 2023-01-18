@@ -43,22 +43,9 @@ class ReadyEvent(commands.Cog):
                 print("  - %s (%s) \nOwner: %s (%s) \nMitglieder: %s Mitglieder \nErstellt am: %s" % (
                     s.name, s.id, s.owner, s.owner_id, s.member_count, s.created_at.strftime("%d.%m.%Y, %H:%M Uhr")))
             started = True
-            import os
-            import sys
-
-            if os.environ.get('DYNO') == "worker":
-                # get the timestamp of the restart
-                release_timestamp = os.environ.get('HEROKU_RELEASE_CREATED_AT')
-                # get the version of the app deployed
-                commit_hash = os.environ.get('HEROKU_SLUG_COMMIT')
-                # send "Restarted by Heroku" message with timestamp and version
-                message = f"Restarted by Heroku at {release_timestamp}. Python version: {sys.version}, Discord.py version: {disnake.__version__}, CommitHash: {commit_hash}"
-                print(message)
-                await bot.get_channel(1038885263641952336).send(message)
-            else:
-                # send "I am online" message
-                print("I am online")
-
+            embed = defaults.style.status_on_embed
+            status_channel = bot.get_channel(1038885263641952336)
+            await status_channel.send(embed=embed)
         else:
             print('Bot ist offline.')
             embed = defaults.style.status_off_embed
