@@ -30,7 +30,6 @@ class CopyCategory(commands.Cog):
             await new_category.set_permissions(perm, overwrite=perms[perm])
 
             await inter.followup.send(f"Kopiere Kategorie {category.name} nach {new_category.name}.")
-            await asyncio.sleep(1)
 
 
 def setup(bot):

@@ -30,6 +30,26 @@ from disnake.ext.commands import CommandOnCooldown
 from disnake.ext.commands import InvokableUserCommand
 from disnake import TextInputStyle
 
+
+import psycopg2
+
+def connect_to_db():
+    connection = psycopg2.connect(
+        host="ec2-99-80-170-190.eu-west-1.compute.amazonaws.com",
+        port="5432",
+        user="uxzhqlzyznggcb",
+        password="f9a9c5050f0bb1fed4bf57435c25eed1eace7e9ca22696aa66c3d8a9e611e00e",
+        database="d52deb924emnv8"
+    )
+    return connection
+
+def execute_query(query):
+    connection = connect_to_db()
+    cursor = connection.cursor()
+    cursor.execute(query)
+    connection.commit()
+    cursor.close()
+    connection.close()
 #bot instance
 class bot(commands.Bot):
     def __init__(self, *args, **kwargs):
@@ -83,6 +103,38 @@ for filename in os.listdir('./events/Message'):
 for filename in os.listdir('./discordeasy'):
     if filename.endswith('.py'):
         bot.load_extension(f'discordeasy.{filename[:-3]}')
+
+
+# Create the "settings" table
+execute_query("""
+CREATE TABLE settings (
+    id SERIAL PRIMARY KEY,
+    key TEXT NOT NULL,
+    value TEXT NOT NULL
+)
+""")
+
+# Insert some initial data into the table
+execute_query("""
+INSERT INTO settings (key, value) VALUES
+    ('greeting', 'Hello, welcome to my Discord bot!'),
+    ('bot_prefix', '!'),
+    ('auto_delete_commands', 'true')
+""")
+
+# Query the "settings" table to retrieve the value of a specific setting
+def get_setting(key):
+    connection = connect_to_db()
+    cursor = connection.cursor()
+    cursor.execute("SELECT value FROM settings WHERE key = %s", (key,))
+    setting = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    return setting
+
+# Example usage
+greeting = get_setting('greeting')
+print(greeting) # Output: "Hello, welcome to my Discord bot!"
 
 #push to github
 bot.run(os.environ.get("TOKEN"))
