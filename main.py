@@ -32,24 +32,8 @@ from disnake import TextInputStyle
 
 
 import psycopg2
+import itsalexdb
 
-def connect_to_db():
-    connection = psycopg2.connect(
-        host="ec2-99-80-170-190.eu-west-1.compute.amazonaws.com",
-        port="5432",
-        user="uxzhqlzyznggcb",
-        password="f9a9c5050f0bb1fed4bf57435c25eed1eace7e9ca22696aa66c3d8a9e611e00e",
-        database="d52deb924emnv8"
-    )
-    return connection
-
-def execute_query(query):
-    connection = connect_to_db()
-    cursor = connection.cursor()
-    cursor.execute(query)
-    connection.commit()
-    cursor.close()
-    connection.close()
 #bot instance
 class bot(commands.Bot):
     def __init__(self, *args, **kwargs):
@@ -106,7 +90,7 @@ for filename in os.listdir('./discordeasy'):
 
 
 # Create the "settings" table
-execute_query("""
+itsalexdb.execute_query("""
 CREATE TABLE settings2 (
     id SERIAL PRIMARY KEY,
     key TEXT NOT NULL,
@@ -115,7 +99,7 @@ CREATE TABLE settings2 (
 """)
 
 # Insert some initial data into the table
-execute_query("""
+itsalexdb.execute_query("""
 INSERT INTO settings2 (key, value) VALUES
     ('greeting', 'Hello, welcome to my Discord bot!'),
     ('bot_prefix', '!'),
