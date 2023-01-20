@@ -107,7 +107,7 @@ for filename in os.listdir('./discordeasy'):
 
 # Create the "settings" table
 execute_query("""
-CREATE TABLE settings (
+CREATE TABLE settings2 (
     id SERIAL PRIMARY KEY,
     key TEXT NOT NULL,
     value TEXT NOT NULL
@@ -116,7 +116,7 @@ CREATE TABLE settings (
 
 # Insert some initial data into the table
 execute_query("""
-INSERT INTO settings (key, value) VALUES
+INSERT INTO settings2 (key, value) VALUES
     ('greeting', 'Hello, welcome to my Discord bot!'),
     ('bot_prefix', '!'),
     ('auto_delete_commands', 'true')
@@ -127,10 +127,10 @@ def get_setting(key):
     connection = connect_to_db()
     cursor = connection.cursor()
     cursor.execute("SELECT value FROM settings WHERE key = %s", (key,))
-    setting = cursor.fetchone()
+    setting2 = cursor.fetchone()
     cursor.close()
     connection.close()
-    return setting
+    return setting2
 
 # Example usage
 greeting = get_setting('greeting')
