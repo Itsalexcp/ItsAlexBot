@@ -30,10 +30,6 @@ from disnake.ext.commands import CommandOnCooldown
 from disnake.ext.commands import InvokableUserCommand
 from disnake import TextInputStyle
 
-
-import psycopg2
-import itsalexdb
-
 #bot instance
 class bot(commands.Bot):
     def __init__(self, *args, **kwargs):
@@ -88,37 +84,6 @@ for filename in os.listdir('./discordeasy'):
     if filename.endswith('.py'):
         bot.load_extension(f'discordeasy.{filename[:-3]}')
 
-
-# Create the "settings" table
-itsalexdb.execute_query("""
-CREATE TABLE settings2 (
-    id SERIAL PRIMARY KEY,
-    key TEXT NOT NULL,
-    value TEXT NOT NULL
-)
-""")
-
-# Insert some initial data into the table
-itsalexdb.execute_query("""
-INSERT INTO settings2 (key, value) VALUES
-    ('greeting', 'Hello, welcome to my Discord bot!'),
-    ('bot_prefix', '!'),
-    ('auto_delete_commands', 'true')
-""")
-
-# Query the "settings" table to retrieve the value of a specific setting
-def get_setting(key):
-    connection = connect_to_db()
-    cursor = connection.cursor()
-    cursor.execute("SELECT value FROM settings WHERE key = %s", (key,))
-    setting2 = cursor.fetchone()
-    cursor.close()
-    connection.close()
-    return setting2
-
-# Example usage
-greeting = get_setting('greeting')
-print(greeting) # Output: "Hello, welcome to my Discord bot!"
 
 #push to github
 bot.run(os.environ.get("TOKEN"))
