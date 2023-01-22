@@ -51,7 +51,6 @@ bot = commands.Bot(
                    owner_id= 494959967774834694,
                    reload=True,
           )
-
 #Load cmds
 for filename in os.listdir('DEV'):
     if filename.endswith('.py'):
