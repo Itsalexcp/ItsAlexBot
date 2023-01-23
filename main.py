@@ -6,7 +6,6 @@ import random
 import disnake
 import defaults
 import pytz
-import MySQLdb
 from defaults             import emojis
 from defaults             import channels
 from defaults             import style
