@@ -6,6 +6,7 @@ import random
 import disnake
 import defaults
 import pytz
+import MySQLdb
 from defaults             import emojis
 from defaults             import channels
 from defaults             import style
@@ -29,6 +30,7 @@ from disnake.ext.commands import NotOwner
 from disnake.ext.commands import CommandOnCooldown
 from disnake.ext.commands import InvokableUserCommand
 from disnake import TextInputStyle
+
 
 #bot instance
 class bot(commands.Bot):
@@ -85,7 +87,7 @@ for filename in os.listdir('./discordeasy'):
 
 
 #push to github
-bot.run(os.environ.get("TOKEN"))
+#bot.run(os.environ.get("TOKEN"))
 #test
-#import ItsAlex
-#bot.run(ItsAlex.TESTTOKEN)
+import ItsAlex
+bot.run(ItsAlex.TESTTOKEN)
