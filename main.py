@@ -87,7 +87,7 @@ for filename in os.listdir('./discordeasy'):
 
 
 #push to github
-#bot.run(os.environ.get("TOKEN"))
+bot.run(os.environ.get("TOKEN"))
 #test
-import ItsAlex
-bot.run(ItsAlex.TESTTOKEN)
+#import ItsAlex
+#bot.run(ItsAlex.TESTTOKEN)
