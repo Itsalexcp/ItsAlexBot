@@ -74,7 +74,7 @@ for filename in os.listdir('./discordeasy'):
         bot.load_extension(f'discordeasy.{filename[:-3]}')
 
 #push to github
-#bot.run(os.environ.get("TOKEN"))
+bot.run(os.environ.get("TOKEN"))
 #test
-import ItsAlex
-bot.run(ItsAlex.TESTTOKEN)
+#import ItsAlex
+#bot.run(ItsAlex.TESTTOKEN)
