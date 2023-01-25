@@ -56,8 +56,8 @@ class ReadyEvent(commands.Cog):
             data = json.loads(response.text)
             latest_release = data[0]
             release_version = latest_release["version"]
-            current_commit_hash = subprocess.run(["git", "log", "-1", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
-            output = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
+            current_commit_hash = subprocess.run(["git", "log", "-1", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.strip("'")
+            output = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.strip("'")
             previous_commit_hash = output.split("\n")[-2] if len(output.split("\n")) > 1 else None
             is_new_build = current_commit_hash != previous_commit_hash
             if is_new_build:
