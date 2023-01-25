@@ -57,36 +57,24 @@ for filename in os.listdir('DEV'):
     if filename.endswith('.py'):
         bot.load_extension(f'DEV.{filename[:-3]}')
 
-for filename in os.listdir('./cmds/general'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cmds.general.{filename[:-3]}')
+for folder in os.listdir('./cmds'):
+    for filename in os.listdir(f'./cmds/{folder}'):
+        if filename.endswith('.py'):
+            bot.load_extension(f'cmds.{folder}.{filename[:-3]}')
+            print(f'cmds.{folder}.{filename[:-3]}')
 
-for filename in os.listdir('./cmds/modalcmds'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'cmds.modalcmds.{filename[:-3]}')
-
-#Load Client Events
-for filename in os.listdir('./events/Client'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'events.Client.{filename[:-3]}')
-
-#Load Guild Events
-for filename in os.listdir('./events/Guild'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'events.Guild.{filename[:-3]}')
-
-#Load Message Events
-for filename in os.listdir('./events/Message'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'events.Message.{filename[:-3]}')
+for folder in os.listdir('./events'):
+    for filename in os.listdir(f'./events/{folder}'):
+        if filename.endswith('.py'):
+            bot.load_extension(f'events.{folder}.{filename[:-3]}')
+            print(f'events.{folder}.{filename[:-3]}')
 
 for filename in os.listdir('./discordeasy'):
     if filename.endswith('.py'):
         bot.load_extension(f'discordeasy.{filename[:-3]}')
 
-
 #push to github
-bot.run(os.environ.get("TOKEN"))
+#bot.run(os.environ.get("TOKEN"))
 #test
-#import ItsAlex
-#bot.run(ItsAlex.TESTTOKEN)
+import ItsAlex
+bot.run(ItsAlex.TESTTOKEN)
