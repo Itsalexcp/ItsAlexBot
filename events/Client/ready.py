@@ -54,10 +54,10 @@ class ReadyEvent(commands.Cog):
             previous_commit_hash = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.split("\n")[1]
             is_new_build = current_commit_hash != previous_commit_hash
             if is_new_build:
-                channel = bot.get_channel(status_channel)
+                channel = status_channel
                 await channel.send(f"Neuer Build deployed!\n Commit Hash: {current_commit_hash}\n Build Number: {build_number}\n Timestamp: {current_time}")
             else:
-                channel = bot.get_channel(status_channel)
+                channel = status_channel
                 await channel.send(f"Bot ist wieder online! Dyno Restart erfolgreich.!\n Build Number: {build_number}\n Uptime: {uptime}\n Timestamp: {current_time}")
             print("Bot ist online.")
             print("Eingeloggt als Bot {}".format(bot.user.name))
