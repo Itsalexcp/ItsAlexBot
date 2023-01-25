@@ -49,18 +49,23 @@ class ReadyEvent(commands.Cog):
         if not started:
             current_time = datetime.datetime.now()
             uptime = current_time - start_time
-            build_number = os.environ.get("HEROKU_RELEASE_VERSION")
+            response = requests.get(endpoint, headers={
+                "Accept": "application/vnd.heroku+json; version=3",
+                "Authorization": f"Bearer {api_key}"
+            })
+            data = json.loads(response.text)
+            latest_release = data[0]
+            release_version = latest_release["version"]
             current_commit_hash = subprocess.run(["git", "log", "-1", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
             output = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
             previous_commit_hash = output.split("\n")[-2] if len(output.split("\n")) > 1 else None
             is_new_build = current_commit_hash != previous_commit_hash
             if is_new_build:
                 channel = status_channel
-                await channel.send(f"Neuer Build deployed!\n Commit Hash: {current_commit_hash}\n Build Number: {build_number}\n Timestamp: {current_time}")
+                await channel.send(f"New build deployed!\n Commit Hash: {current_commit_hash}\n Release Version: {release_version}\n Timestamp: {current_time}")
             else:
                 channel = status_channel
-                await channel.send(f"Bot ist wieder online! Dyno Restart erfolgreich.!\n Build Number: {build_number}\n Uptime: {uptime}\n Timestamp: {current_time}")
-            print("Bot ist online.")
+                await channel.send(f"Bot is back online!\n Release Version: {release_version}\n Timestamp: {current_time}")
             print("Eingeloggt als Bot {}".format(bot.user.name))
             bot.loop.create_task(status_task(bot))
             print("\nBot ist erfolgreich online gegangen.\n\nLäuft aktuell auf folgenden Server:\n")
