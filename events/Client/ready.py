@@ -9,6 +9,7 @@ from defaults import style
 from defaults import emojis
 from defaults import channels
 from disnake.ext import commands
+import subprocess
 
 started = False
 
@@ -48,22 +49,16 @@ class ReadyEvent(commands.Cog):
         if not started:
             current_time = datetime.datetime.now()
             uptime = current_time - start_time
-            response = requests.get(endpoint, headers={
-                "Accept": "application/vnd.heroku+json; version=3",
-                "Authorization": f"Bearer {api_key}"
-            })
-            data = json.loads(response.text)
-            latest_release = data[0]
-            current_commit_hash = latest_release["commit"]
-            previous_commit_hash = data[1]["commit"]
-            is_new_build = current_commit_hash != previous_commit_hash
             build_number = os.environ.get("HEROKU_RELEASE_VERSION")
+            current_commit_hash = subprocess.run(["git", "log", "-1", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
+            previous_commit_hash = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.split("\n")[1]
+            is_new_build = current_commit_hash != previous_commit_hash
             if is_new_build:
-                channel = status_channel
-                await channel.send(f"Neuer Build deployed!\n Commit Hash: {current_commit_hash}\n Build Number: {build_number}\n Zeit: {current_time}")
+                channel = bot.get_channel(status_channel)
+                await channel.send(f"Neuer Build deployed!\n Commit Hash: {current_commit_hash}\n Build Number: {build_number}\n Timestamp: {current_time}")
             else:
-                channel = status_channel
-                await channel.send(f"Dyno Restart, Bot ist wieder online\n Build Number: {build_number}\n Uptime: {uptime}\n Zeit: {current_time}")
+                channel = bot.get_channel(status_channel)
+                await channel.send(f"Bot ist wieder online! Dyno Restart erfolgreich.!\n Build Number: {build_number}\n Uptime: {uptime}\n Timestamp: {current_time}")
             print("Bot ist online.")
             print("Eingeloggt als Bot {}".format(bot.user.name))
             bot.loop.create_task(status_task(bot))
