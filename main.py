@@ -73,6 +73,7 @@ for filename in os.listdir('./discordeasy'):
     if filename.endswith('.py'):
         bot.load_extension(f'discordeasy.{filename[:-3]}')
 
+
 #push to github
 bot.run(os.environ.get("TOKEN"))
 #test
