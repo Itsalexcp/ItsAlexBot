@@ -51,7 +51,8 @@ class ReadyEvent(commands.Cog):
             uptime = current_time - start_time
             build_number = os.environ.get("HEROKU_RELEASE_VERSION")
             current_commit_hash = subprocess.run(["git", "log", "-1", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
-            previous_commit_hash = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.split("\n")[1]
+            output = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout
+            previous_commit_hash = output.split("\n")[-2] if len(output.split("\n")) > 1 else None
             is_new_build = current_commit_hash != previous_commit_hash
             if is_new_build:
                 channel = status_channel
