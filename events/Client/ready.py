@@ -20,11 +20,11 @@ with open('runtime.txt', 'r') as f:
 
 
 def check_slug():
-    if SLUG_COMMIT == PREVIOUS_SLUG:
-        return True
     if SLUG_COMMIT != PREVIOUS_SLUG:
         os.environ.update({"PREVIOUS_SLUG": os.environ.get("HEROKU_SLUG_COMMIT")})
         return False
+    else:
+        return True
 
 
 ReadyEmbedBUILD = disnake.Embed(
