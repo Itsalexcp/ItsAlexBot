@@ -81,8 +81,6 @@ class ReadyEvent(commands.Cog):
             await bot.get_channel(defaults.channels.status).send(embed=embed)
         return
 
-        # Presence
-
 
 def setup(bot):
     bot.add_cog(ReadyEvent(bot))
