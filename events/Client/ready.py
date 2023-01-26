@@ -25,9 +25,9 @@ ReadyEmbedBUILD = disnake.Embed(
     color=style.primaryColor,
     timestamp=disnake.utils.utcnow()
 )
-if CHECK == "False":
+if CHECK == "FALSE":
     ReadyEmbedBUILD.add_field(name="Action", value="Neustart", inline=True)
-else:
+if CHECK == "TRUE":
     ReadyEmbedBUILD.add_field(name="Action", value="Neuer Build", inline=True)
 ReadyEmbedBUILD.add_field(name="Bot Version", value=RELEASE_VERSION, inline=True)
 ReadyEmbedBUILD.add_field(name="Bot Build", value=SLUG_DESCRIPTION, inline=True)
