@@ -23,6 +23,7 @@ def check_slug():
     if SLUG_COMMIT == PREVIOUS_SLUG:
         return True
     if SLUG_COMMIT != PREVIOUS_SLUG:
+        os.environ.update({"PREVIOUS_SLUG": os.environ.get("HEROKU_SLUG_COMMIT")})
         return False
 
 
@@ -87,8 +88,6 @@ async def status_task(bot: commands.Bot):
         await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name="Updates"),
                                   status=disnake.Status.online)
         await asyncio.sleep(30)
-
-os.environ["PREVIOUS_SLUG"] = SLUG_COMMIT
 
 
 def setup(bot):
