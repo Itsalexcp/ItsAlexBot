@@ -13,10 +13,17 @@ RELEASE_VERSION = os.environ.get("HEROKU_RELEASE_VERSION")
 RELEASE_TIME = os.environ.get("HEROKU_RELEASE_CREATED_AT")
 SLUG_DESCRIPTION = os.environ.get("HEROKU_SLUG_DESCRIPTION")
 SLUG_COMMIT = os.environ.get("HEROKU_SLUG_COMMIT")
-CHECK = os.environ.get("IS_NEW_ALEX")
+PREVIOUS_SLUG = os.environ.get("PREVIOUS_SLUG")
 DISNAKE_VERSION = disnake.__version__
 with open('runtime.txt', 'r') as f:
     python_version = f.read().strip()
+
+
+def check_slug():
+    if SLUG_COMMIT == PREVIOUS_SLUG:
+        return True
+    if SLUG_COMMIT != PREVIOUS_SLUG:
+        return False
 
 
 ReadyEmbedBUILD = disnake.Embed(
@@ -25,10 +32,10 @@ ReadyEmbedBUILD = disnake.Embed(
     color=style.primaryColor,
     timestamp=disnake.utils.utcnow()
 )
-if CHECK == "FALSE":
-    ReadyEmbedBUILD.add_field(name="Action", value="Neustart", inline=True)
-if CHECK == "TRUE":
-    ReadyEmbedBUILD.add_field(name="Action", value="Neuer Build", inline=True)
+if check_slug():
+    ReadyEmbedBUILD.add_field(name="Action", value="Bot wurde neu gestartet.", inline=True)
+if not check_slug():
+    ReadyEmbedBUILD.add_field(name="Action", value="Bot wurde neu deployed.", inline=True)
 ReadyEmbedBUILD.add_field(name="Bot Version", value=RELEASE_VERSION, inline=True)
 ReadyEmbedBUILD.add_field(name="Bot Build", value=SLUG_DESCRIPTION, inline=True)
 ReadyEmbedBUILD.add_field(name="Bot Commit", value=SLUG_COMMIT, inline=True)
@@ -80,6 +87,8 @@ async def status_task(bot: commands.Bot):
         await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name="Updates"),
                                   status=disnake.Status.online)
         await asyncio.sleep(30)
+
+os.environ["PREVIOUS_SLUG"] = SLUG_COMMIT
 
 
 def setup(bot):
