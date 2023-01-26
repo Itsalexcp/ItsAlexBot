@@ -1,18 +1,69 @@
 import os
-import datetime
 import disnake
 import defaults
 import asyncio
-import requests
-import json
 from defaults import style
-from defaults import emojis
 from defaults import channels
 from disnake.ext import commands
-import subprocess
 
 started = False
+APP_ID = os.environ.get("HEROKU_APP_ID")
+APP_NAME = os.environ.get("HEROKU_APP_NAME")
+RELEASE_VERSION = os.environ.get("HEROKU_RELEASE_VERSION")
+RELEASE_TIME = os.environ.get("HEROKU_RELEASE_CREATED_AT")
+SLUG_DESCRIPTION = os.environ.get("HEROKU_SLUG_DESCRIPTION")
+SLUG_COMMIT = os.environ.get("HEROKU_SLUG_COMMIT")
+CHECK = os.environ.get("IS_NEW_ALEX")
+DISNAKE_VERSION = disnake.__version__
+with open('runtime.txt', 'r') as f:
+    python_version = f.read().strip()
 
+
+ReadyEmbedBUILD = disnake.Embed(
+    title="Bot Status",
+    description="Bot ist online gegangen.",
+    color=style.primaryColor,
+    timestamp=disnake.utils.utcnow()
+)
+if CHECK == "False":
+    ReadyEmbedBUILD.add_field(name="Action", value="Neustart", inline=True)
+else:
+    ReadyEmbedBUILD.add_field(name="Action", value="Neuer Build", inline=True)
+ReadyEmbedBUILD.add_field(name="Bot Version", value=RELEASE_VERSION, inline=True)
+ReadyEmbedBUILD.add_field(name="Bot Build", value=SLUG_DESCRIPTION, inline=True)
+ReadyEmbedBUILD.add_field(name="Bot Commit", value=SLUG_COMMIT, inline=True)
+ReadyEmbedBUILD.add_field(name="Python Version", value=python_version, inline=True)
+ReadyEmbedBUILD.add_field(name="Disnake Version", value=DISNAKE_VERSION, inline=True)
+ReadyEmbedBUILD.add_field(name="Heroku App ID", value=APP_ID, inline=True)
+ReadyEmbedBUILD.add_field(name="Heroku App Name", value=APP_NAME, inline=True)
+ReadyEmbedBUILD.add_field(name="Heroku Release Time", value=RELEASE_TIME, inline=True)
+ReadyEmbedBUILD.set_footer(text="Bot Status", icon_url="https://cdn.discordapp.com/attachments/1038885667360493568/1039309745128996864/AppIconGhostStation.png")
+
+
+class ReadyEvent(commands.Cog):
+
+    def __init__(self, bot: commands.Bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        bot = self.bot
+        status_channel = bot.get_channel(1038885263641952336)
+        global started
+        if not started:
+            print("Eingeloggt als Bot {}".format(bot.user.name))
+            bot.loop.create_task(status_task(bot))
+            print("\nBot ist erfolgreich online gegangen.\n\nLäuft aktuell auf folgenden Server:\n")
+            for s in bot.guilds:
+                print("  - %s (%s) \nOwner: %s (%s) \nMitglieder: %s Mitglieder \nErstellt am: %s" % (
+                    s.name, s.id, s.owner, s.owner_id, s.member_count, s.created_at.strftime("%d.%m.%Y, %H:%M Uhr")))
+            started = True
+            await status_channel.send(embed=ReadyEmbedBUILD)
+        else:
+            print('Bot ist offline.')
+            embed = defaults.style.status_off_embed
+            await bot.get_channel(defaults.channels.status).send(embed=embed)
+        return
 
 
 async def status_task(bot: commands.Bot):
@@ -29,57 +80,6 @@ async def status_task(bot: commands.Bot):
         await bot.change_presence(activity=disnake.Activity(type=disnake.ActivityType.listening, name="Updates"),
                                   status=disnake.Status.online)
         await asyncio.sleep(30)
-
-
-class ReadyEvent(commands.Cog):
-
-    def __init__(self, bot: commands.Bot):
-        self.bot = bot
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        bot = self.bot
-        api_key = os.environ.get("HEROKU_ITSALEX_API")
-        app_name = "itsalexbot"
-        endpoint = f"https://api.heroku.com/apps/{app_name}/releases"
-        # Store the time when the bot was last started
-        start_time = datetime.datetime.now()
-        status_channel = bot.get_channel(1038885263641952336)
-        global started
-        if not started:
-            current_time = datetime.datetime.now()
-            uptime = current_time - start_time
-            response = requests.get(endpoint, headers={
-                "Accept": "application/vnd.heroku+json; version=3",
-                "Authorization": f"Bearer {api_key}"
-            })
-            data = json.loads(response.text)
-            latest_release = data[0]
-            release_version = latest_release["version"]
-            current_commit_hash = subprocess.run(["git", "log", "-1", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.strip("'")
-            output = subprocess.run(["git", "log", "-2", "--pretty=format:'%h'"], capture_output=True, text=True).stdout.strip("'")
-            previous_commit_hash = output.split("\n")[-2] if len(output.split("\n")) > 1 else None
-            is_new_build = current_commit_hash != previous_commit_hash
-            if is_new_build:
-                channel = status_channel
-                await channel.send(f"New build deployed!\n Commit Hash: {current_commit_hash}\n Release Version: {release_version}\n Timestamp: {current_time}")
-            else:
-                channel = status_channel
-                await channel.send(f"Bot is back online!\n Release Version: {release_version}\n Timestamp: {current_time}")
-            print("Eingeloggt als Bot {}".format(bot.user.name))
-            bot.loop.create_task(status_task(bot))
-            print("\nBot ist erfolgreich online gegangen.\n\nLäuft aktuell auf folgenden Server:\n")
-            for s in bot.guilds:
-                print("  - %s (%s) \nOwner: %s (%s) \nMitglieder: %s Mitglieder \nErstellt am: %s" % (
-                    s.name, s.id, s.owner, s.owner_id, s.member_count, s.created_at.strftime("%d.%m.%Y, %H:%M Uhr")))
-            started = True
-            embed = defaults.style.status_on_embed
-            await status_channel.send(embed=embed)
-        else:
-            print('Bot ist offline.')
-            embed = defaults.style.status_off_embed
-            await bot.get_channel(defaults.channels.status).send(embed=embed)
-        return
 
 
 def setup(bot):
