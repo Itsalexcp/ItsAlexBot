@@ -55,7 +55,7 @@ def load_cogs():
 load_cogs()
 
 #push to github
-#bot.run(os.environ.get("TOKEN"))
+bot.run(os.environ.get("TOKEN"))
 #test
-import ItsAlex
-bot.run(ItsAlex.TESTTOKEN)
+#import ItsAlex
+#bot.run(ItsAlex.TESTTOKEN)
