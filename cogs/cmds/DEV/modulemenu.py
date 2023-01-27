@@ -1,11 +1,7 @@
 import disnake
 from disnake.ext import commands
-import datetime
 import os
 import asyncio
-from disnake.utils import search_directory
-
-import defaults
 from defaults import emojis
 from defaults import style
 
