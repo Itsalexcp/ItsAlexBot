@@ -3,12 +3,22 @@ from disnake.ext import commands
 import datetime
 import os
 import asyncio
-
 from disnake.utils import search_directory
 
 import defaults
 from defaults import emojis
 from defaults import style
+
+
+def search_cogs():
+    for folder, subfolder, file in os.walk("cogs/"):
+        for filename in file:
+            if filename.endswith(".py"):
+                filenamepath = os.path.join(folder, filename)
+                filenamepath = filenamepath.replace("\\", ".")
+                filenamepath = filenamepath.replace("/", ".")
+                filenamepath = filenamepath.replace(".py", "")
+                yield filenamepath
 
 
 class MenuButtons(disnake.ui.View):
@@ -106,11 +116,10 @@ class ModuleMenu(commands.Cog):
         embed = disnake.Embed(title="Modulmenü", description="Hier kannst du Module laden, entladen und neu laden.", color=style.primaryColor)
         for s in self.bot.extensions:
             embed.add_field(name=f"{emojis.SwitchNewOnGreen} {s}", value=f"Status: Geladen", inline=False)
-        d1 = set(search_directory("cmds/general")).difference(self.bot.extensions)
-        d2 = set(search_directory("events/Client")).difference(self.bot.extensions)
-        d3 = set(search_directory("events/Guild")).difference(self.bot.extensions)
-        d4 = set(search_directory("events/Message")).difference(self.bot.extensions)
-        for s in d1 | d2 | d3 | d4:
+        d1 = self.bot.extensions
+        d2 = search_cogs()
+        d3 = list(set(d2) - set(d1))
+        for s in d3:
             embed.add_field(name=f"{emojis.SwitchNewOff} {s}", value=f"Status: Entladen", inline=False)
         embed.set_footer(text=f"Angefordert von {interaction.author}", icon_url=interaction.author.avatar.url)
         await interaction.response.send_message(embed=embed, view=MenuButtons(self.bot))
