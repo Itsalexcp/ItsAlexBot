@@ -6,11 +6,9 @@ import random
 import disnake
 import defaults
 import pytz
-from defaults             import emojis
-from defaults             import channels
-from defaults             import style
-from datetime             import timedelta
-from datetime             import datetime
+from disnake import TextInputStyle
+from defaults             import emojis, channels, style
+from datetime             import timedelta, datetime
 from random               import randint
 from disnake.activity     import BaseActivity
 from disnake.client       import GatewayParams
@@ -20,15 +18,7 @@ from disnake.i18n         import LocalizationProtocol
 from disnake.mentions     import AllowedMentions
 from disnake.message      import Message
 from disnake.ext          import commands
-from disnake.ext.commands import when_mentioned_or
-from disnake.ext.commands import CommandNotFound
-from disnake.ext.commands import MissingPermissions
-from disnake.ext.commands import MissingRequiredArgument
-from disnake.ext.commands import BadArgument
-from disnake.ext.commands import NotOwner
-from disnake.ext.commands import CommandOnCooldown
-from disnake.ext.commands import InvokableUserCommand
-from disnake import TextInputStyle
+from disnake.ext.commands import when_mentioned_or, CommandNotFound, MissingPermissions, MissingRequiredArgument, BadArgument, NotOwner, CommandOnCooldown, InvokableUserCommand
 
 
 #bot instance
@@ -52,30 +42,20 @@ bot = commands.Bot(
                    owner_id= 494959967774834694,
                    reload=True,
           )
-#Load cmds
-for filename in os.listdir('DEV'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'DEV.{filename[:-3]}')
+def load_cogs():
+    for folder, subfolder, file in os.walk("cogs/"):
+        for filename in file:
+            if filename.endswith(".py"):
+                filenamepath = os.path.join(folder, filename)
+                filenamepath = filenamepath.replace("\\", ".")
+                filenamepath = filenamepath.replace("/", ".")
+                filenamepath = filenamepath.replace(".py", "")
+                bot.load_extension(filenamepath)
 
-for folder in os.listdir('./cmds'):
-    for filename in os.listdir(f'./cmds/{folder}'):
-        if filename.endswith('.py'):
-            bot.load_extension(f'cmds.{folder}.{filename[:-3]}')
-            print(f'cmds.{folder}.{filename[:-3]}')
-
-for folder in os.listdir('./events'):
-    for filename in os.listdir(f'./events/{folder}'):
-        if filename.endswith('.py'):
-            bot.load_extension(f'events.{folder}.{filename[:-3]}')
-            print(f'events.{folder}.{filename[:-3]}')
-
-for filename in os.listdir('./discordeasy'):
-    if filename.endswith('.py'):
-        bot.load_extension(f'discordeasy.{filename[:-3]}')
-
+load_cogs()
 
 #push to github
-bot.run(os.environ.get("TOKEN"))
+#bot.run(os.environ.get("TOKEN"))
 #test
-#import ItsAlex
-#bot.run(ItsAlex.TESTTOKEN)
+import ItsAlex
+bot.run(ItsAlex.TESTTOKEN)
