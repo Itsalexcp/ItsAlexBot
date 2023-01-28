@@ -30,13 +30,13 @@
         </samp>
         <!-- Programming Languages -->
         <!-- Code logo -->
-         <a href="https://github.com/alsiam?tab=repositories" target="_blank"><img alt="Python"
+         <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="Python"
                         src="https://img.shields.io/badge/-Python-800080?style=for-the-badge&labelColor=black&logo=python&logoColor=F0DB4F">
         </a>
-        <a href="https://github.com/alsiam?tab=repositories" target="_blank"><img alt="Discord"
+        <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="Discord"
                         src="https://img.shields.io/badge/-Discord-424549?style=for-the-badge&labelColor=black&logo=discord&logoColor=7289da">
         </a>
-        <a href="https://github.com/alsiam?tab=repositories" target="_blank"><img alt="JavaScript"
+        <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="JavaScript"
                         src="https://img.shields.io/badge/-Javascript-F0DB4F?style=for-the-badge&labelColor=black&logo=javascript&logoColor=F0DB4F">
         </a>
         <!-- Python -->
