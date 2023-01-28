@@ -2,6 +2,7 @@ __pycache__/
 ItsAlex.py
 #pycharm folder
 /.idea/
-#pycharm file
 *.iml
+*.ipr
+*.xml
 
