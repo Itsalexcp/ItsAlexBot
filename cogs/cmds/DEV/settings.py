@@ -1,7 +1,9 @@
 import sqlite3
 import disnake
 from disnake.ext import commands
-import defaults
+import main as alex
+
+dp = alex.bot.default_prefix
 
 conn_settings = sqlite3.connect('settings.db')
 cs = conn_settings.cursor()
@@ -31,13 +33,23 @@ class Settings(commands.Cog):
         """Zeigt den Prefix für den Server"""
         cs.execute("SELECT * FROM settings WHERE guild_id = ?", (inter.guild.id,))
         if cs.fetchone() is None:
-            await inter.response.send_message(f"Der Prefix ist `{defaults.prefix}`")
+            await inter.response.send_message(f"Der Prefix ist `{dp}`")
         else:
             cs.execute("SELECT prefix FROM settings WHERE guild_id = ?", (inter.guild.id,))
             prefix = cs.fetchone()[0]
             await inter.response.send_message(f"Der Prefix ist `{prefix}`")
-            cs.close()
 
+    @commands.slash_command()
+    async def resetprefix(self, inter: disnake.ApplicationCommandInteraction):
+        """Setzt den Prefix für den Server auf den Standardwert"""
+        cs.execute("SELECT * FROM settings WHERE guild_id = ?", (inter.guild.id,))
+        if cs.fetchone() is None:
+            await inter.response.send_message(f"Der Prefix ist bereits `{dp}`")
+        else:
+            cs.execute("DELETE FROM settings WHERE guild_id = ?", (inter.guild.id,))
+            conn_settings.commit()
+            await inter.response.send_message(f"Der Prefix wurde auf `{dp}` gesetzt.")
 
+            
 def setup(bot: commands.Bot):
     bot.add_cog(Settings(bot))
