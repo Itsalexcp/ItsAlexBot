@@ -31,17 +31,13 @@
         <!-- Programming Languages -->
         <!-- Code logo -->
          <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="Python"
-                        src="https://img.shields.io/badge/-Python-800080?style=for-the-badge&labelColor=black&logo=python&logoColor=F0DB4F">
+                        src="https://img.shields.io/badge/-Python-306998?style=for-the-badge&labelColor=306998&logo=python&logoColor=FFD43B">
+        </a>
+        <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="Heroku"
+                        src="https://img.shields.io/badge/-Heroku-C9C3E6?style=for-the-badge&labelColor=C9C3E6&logo=heroku&logoColor=6762A6">
         </a>
         <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="Discord"
-                        src="https://img.shields.io/badge/-Discord-424549?style=for-the-badge&labelColor=black&logo=discord&logoColor=7289da">
-        </a>
-        <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="JavaScript"
-                        src="https://img.shields.io/badge/-Javascript-F0DB4F?style=for-the-badge&labelColor=black&logo=javascript&logoColor=F0DB4F">
-        </a>
-        <!-- Python -->
-        <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="NodeJS"
-                        src="https://img.shields.io/badge/-Nodejs-3C873A?style=for-the-badge&labelColor=black&logo=node.js&logoColor=3C873A">
+                        src="https://img.shields.io/badge/-Discord-424549?style=for-the-badge&labelColor=424549&logo=discord&logoColor=7289da">
         </a>
         <!-- Arduino -->
         <a href="https://github.com/itsalexcp?tab=repositories" target="_blank"><img alt="MongoDB"
