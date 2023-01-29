@@ -6,6 +6,7 @@ import random
 import disnake
 import defaults
 import pytz
+import sqlite3
 from disnake import TextInputStyle
 from defaults             import emojis, channels, style
 from datetime             import timedelta, datetime
@@ -19,6 +20,11 @@ from disnake.mentions     import AllowedMentions
 from disnake.message      import Message
 from disnake.ext          import commands
 from disnake.ext.commands import when_mentioned_or, CommandNotFound, MissingPermissions, MissingRequiredArgument, BadArgument, NotOwner, CommandOnCooldown, InvokableUserCommand
+
+
+connection = sqlite3.connect("database.db")
+cursor = connection.cursor()
+
 
 
 #bot instance
@@ -55,7 +61,7 @@ def load_cogs():
 load_cogs()
 
 #push to github
-bot.run(os.environ.get("TOKEN"))
+#bot.run(os.environ.get("TOKEN"))
 #test
-#import ItsAlex
-#bot.run(ItsAlex.TESTTOKEN)
+import ItsAlex
+bot.run(ItsAlex.TESTTOKEN)
