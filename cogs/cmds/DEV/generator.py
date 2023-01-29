@@ -29,7 +29,7 @@ class PasswordGenerator(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(name="password", description="Generiert ein zufälliges Passwort.")
-    async def password(self, inter: disnake.ApplicationCommandInteraction):
+    async def password(self, inter: disnake.ApplicationCommandInteraction, length: int):
         """Generiert ein zufälliges Passwort."""
         passwordembed = disnake.Embed(
             title="Passwort Generator",
@@ -42,7 +42,8 @@ class PasswordGenerator(commands.Cog):
             icon_url=inter.author.avatar
         )
         passwordembed.set_footer(text="Powered by itsalex.cp#0001", icon_url="https://cdn.discordapp.com/attachments/1038885667360493568/1043262304726286376/DE_SnowsgivingClydeLight.png")
-        passwordembed.add_field(name=f"{emojis.IconLock} Passwort", value=await generate_password(), inline=False)
+        passwordembed.add_field(name=f"{emojis.IconQuote} Länge", value=length, inline=False)
+        passwordembed.add_field(name=f"{emojis.IconLock} Passwort", value=await generate_password(length), inline=False)
         await inter.response.send_message(embed=passwordembed)
 
 
