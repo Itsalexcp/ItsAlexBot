@@ -3,7 +3,7 @@ import disnake
 from disnake.ext import commands
 import main as alex
 
-dp = alex.bot.default_prefix
+dp = alex.default_prefix
 
 conn_settings = sqlite3.connect('settings.db')
 cs = conn_settings.cursor()

@@ -44,12 +44,12 @@ bot = commands.Bot(
                    case_insensitive=False,
                    test_guilds=[673481402448085024],
                    command_prefix=when_mentioned_or(prefix),
-                   default_prefix="e!",
                    command_sync_flags=command_sync_flags,
                    description="ItsAlex Enterprise - Ein völlig neuer Bot der auf Disnake basiert.",
                    owner_id= 494959967774834694,
                    reload=True,
           )
+default_prefix="e!"
 def load_cogs():
     for folder, subfolder, file in os.walk("cogs/"):
         for filename in file:
