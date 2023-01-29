@@ -22,9 +22,6 @@ from disnake.ext          import commands
 from disnake.ext.commands import when_mentioned_or, CommandNotFound, MissingPermissions, MissingRequiredArgument, BadArgument, NotOwner, CommandOnCooldown, InvokableUserCommand
 
 
-connection = sqlite3.connect("database.db")
-cursor = connection.cursor()
-
 
 
 #bot instance
@@ -37,12 +34,16 @@ class bot(commands.Bot):
 command_sync_flags = commands.CommandSyncFlags.default()
 command_sync_flags.sync_commands_debug = True
 
+conn_settings = sqlite3.connect('settings.db')  # connect to database
+cs = conn_settings.cursor()
+
+prefix = "SELECT prefix FROM settings WHERE guild_id = inter.guild.id"
 #Bot Instance
 bot = commands.Bot(
                    intents=Intents.all(),
                    case_insensitive=False,
                    test_guilds=[673481402448085024],
-                   command_prefix=commands.when_mentioned_or('!'),
+                   command_prefix=prefix,
                    command_sync_flags=command_sync_flags,
                    description="ItsAlex Enterprise - Ein völlig neuer Bot der auf Disnake basiert.",
                    owner_id= 494959967774834694,
