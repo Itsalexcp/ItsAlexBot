@@ -1,55 +1,33 @@
 import os
-import sys
-import asyncio
-import time
-import random
+from disnake.flags import Intents
+from disnake.ext import commands
 import disnake
-import defaults
-import pytz
-import sqlite3
-from disnake import TextInputStyle
-from defaults             import emojis, channels, style
-from datetime             import timedelta, datetime
-from random               import randint
-from disnake.activity     import BaseActivity
-from disnake.client       import GatewayParams
-from disnake.enums        import Status
-from disnake.flags        import Intents, MemberCacheFlags
-from disnake.i18n         import LocalizationProtocol
-from disnake.mentions     import AllowedMentions
-from disnake.message      import Message
-from disnake.ext          import commands
-from disnake.ext.commands import when_mentioned_or, CommandNotFound, MissingPermissions, MissingRequiredArgument, BadArgument, NotOwner, CommandOnCooldown, InvokableUserCommand
+
+from cogs.events.Client.ready import status_task
 
 
-
-
-#bot instance
-class bot(commands.Bot):
+# bot instance
+class Bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.loop.create_task(status_task())
 
-#commands sync
+
+# commands sync
 command_sync_flags = commands.CommandSyncFlags.default()
-command_sync_flags.sync_commands_debug = True
 
-conn_settings = sqlite3.connect('settings.db')  # connect to database
-cs = conn_settings.cursor()
-
-prefix = "SELECT prefix FROM settings WHERE guild_id = inter.guild.id"
-#Bot Instance
+# Bot Instance
 bot = commands.Bot(
-                   intents=Intents.all(),
-                   case_insensitive=False,
-                   test_guilds=[673481402448085024],
-                   command_prefix=when_mentioned_or(prefix),
-                   command_sync_flags=command_sync_flags,
-                   description="ItsAlex Enterprise - Ein völlig neuer Bot der auf Disnake basiert.",
-                   owner_id= 494959967774834694,
-                   reload=True,
-          )
-default_prefix="e!"
+    intents=Intents.all(),
+    case_insensitive=False,
+    test_guilds=[673481402448085024],
+    command_sync_flags=command_sync_flags,
+    description="ItsAlex Enterprise - Ein völlig neuer Bot der auf Disnake basiert.",
+    owner_id=494959967774834694,
+    reload=True,
+)
+
+
 def load_cogs():
     for folder, subfolder, file in os.walk("cogs/"):
         for filename in file:
@@ -60,10 +38,10 @@ def load_cogs():
                 filenamepath = filenamepath.replace(".py", "")
                 bot.load_extension(filenamepath)
 
+
 load_cogs()
 
-#push to github
+# push to github
 bot.run(os.environ.get("TOKEN"))
-#test
-#import ItsAlex
-#bot.run(ItsAlex.TESTTOKEN)
+# test
+
