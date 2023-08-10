@@ -96,8 +96,6 @@ class Giveaway(commands.Cog):
         embed.add_field(name='Winners:', value=f'{winners}', inline=False)
         embed.add_field(name='Hosted by:', value=f'{ctx.author.mention}', inline=False)
         embed.set_footer(text=f"Giveway ID: {giveaway_id}")
-
-    if art == 0:
-        msg = await ctx.channel.send(embed=embed, view=giveaway_on())
-    elif art == 1:
-        msg = await ctx.channel.send(embed=embed, view=giveaway_appli())
+        msg = await channel.send(embed=embed, view=giveaway_on())
+        await ctx.send(f"Giveaway started in {channel.mention}!", ephemeral=True)
+        await asyncio.sleep(tim)
