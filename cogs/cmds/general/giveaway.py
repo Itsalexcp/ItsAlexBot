@@ -37,20 +37,23 @@ class giveaway_off(disnake.ui.View):
     async def give_off(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
         pass
 
+
 class Giveaway(commands.Cog):
     def __init__(self, client):
         self.client = client
-       # self.on_giveaway_end.start()
-        #self.on_giveaway_delete.start()
+
+    # self.on_giveaway_end.start()
+    # self.on_giveaway_delete.start()
 
     @commands.slash_command(name="giveaway")
     async def giveaway(self, ctx):
         pass
 
-    art = commands.option_enum(choices={'Yes': 1, 'No':0}
+    art = commands.option_enum(choices={'Yes': 1, 'No': 0})
 
     @giveaway.sub_command(name="start", description="Start a giveaway")
-    async def giveaway_start(self, ctx, channel: disnake.TextChannel, description: str, prize: str, duration: str, winners: int, application: art):
+    async def giveaway_start(self, ctx, channel: disnake.TextChannel, description: str, prize: str, duration: str,
+                             winners: int, application: art):
         """
                 Parameters
                 ----------
@@ -86,7 +89,8 @@ class Giveaway(commands.Cog):
         embed.add_field(name='Winners:', value=f'{winners}', inline=False)
         embed.add_field(name='Hosted by:', value=f'{ctx.author.mention}', inline=False)
         embed.set_footer(text=f"Giveway ID: {giveaway_id}")
+
     if art == 0:
-            msg = await ctx.channel.send(embed=embed, view=giveaway_on())
+        msg = await ctx.channel.send(embed=embed, view=giveaway_on())
     elif art == 1:
-                            msg = await ctx.channel.send(embed=embed, view=giveaway_appli())
+        msg = await ctx.channel.send(embed=embed, view=giveaway_appli())
