@@ -34,13 +34,11 @@ class GiveawayCommand(commands.Cog):
             disnake.Option(
                 name="channel",
                 description="Channel to post the giveaway in",
-                type=disnake.OptionType.CHANNEL,
                 required=True
             ),
             disnake.Option(
                 name="title",
                 description="Title of the giveaway",
-                type=disnake.OptionType.STRING,
                 required=True
             ),
             # Add other options similarly
