@@ -62,6 +62,13 @@ class Giveaway(commands.Cog):
                 prize : The prize of the giveaway
                 duration : The duration of the giveaway
                 winners : The amount of winners
+                :param application:
+                :param winners:
+                :param duration:
+                :param prize:
+                :param description:
+                :param channel:
+                :param ctx:
         """
         unit = duration[-1]
         if unit == 's':
